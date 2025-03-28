@@ -6,10 +6,22 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:26:24 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/28 13:26:40 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:25:56 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intern.h"
 
-void log()
+void _log(t_e_igmlx_log_level level, const char *msg)
+{
+	ft_fprintf(STDOUT_FILENO, BHBLK "[" BMAG IGMLX_LOG_PREFIX BHBLK "]" RESET " ");
+	if (level == IGMLX_LOG_INFO)
+		ft_fprintf(STDOUT_FILENO, BHBLK "[" BCYN "Info" BHBLK "]" RESET " ");
+	if (level == IGMLX_LOG_DEBUG)
+		ft_fprintf(STDOUT_FILENO, BHBLK "[" BWHT "Debug" BHBLK "]" RESET " ");
+	if (level == IGMLX_LOG_WARNING)
+		ft_fprintf(STDOUT_FILENO, BHBLK "[" BYEL "Warning" BHBLK "]" RESET " ");
+	if (level == IGMLX_LOG_ERROR)
+		ft_fprintf(STDOUT_FILENO, BHBLK "[" BRED "Error" BHBLK "]" RESET " ");
+	ft_fprintf(STDOUT_FILENO, WHT "%s\n", msg);
+}

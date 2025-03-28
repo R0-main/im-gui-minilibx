@@ -28,7 +28,15 @@ FT_LIBC 			= ./libs/ft_libc/ft_libc.a
 MLX_LIB 			= ./libs/minilibx_linux/libmlx_Linux.a
 MLX_LIB_PATH 		= ./libs/minilibx_linux/
 
-SRCS				=	src/main.c
+SRCS				=	src/main.c\
+						src/loop.c\
+						src/init.c\
+						src/components/button/button.c\
+						src/components/checkbox/checkbox.c\
+						src/components/utils.c\
+						src/hooks/hook.c\
+						src/logs/logs.c\
+						src/rendering/render.c
 
 TESTS				=	tests/main.c
 TESTS_OBJ_DIR		=	objects/_tests
@@ -84,6 +92,7 @@ $(MLX_LIB):
 	make re -C $(MLX_LIB_PATH) --no-print-directory
 
 tests : $(TESTS_OBJS) $(NAME) $(FT_LIBC) $(MLX_LIB)
+	@$(RM) tests.out
 	@$(CC) $(CFLAGS) $(TESTS_OBJS) $(NAME) $(FT_LIBC) $(MLX_LIB) $(CMLX_FLAGS) -o tests.out
 
 dev	 : clean-objs all tests
@@ -91,6 +100,7 @@ dev	 : clean-objs all tests
 
 clean-objs :
 		@$(RM) $(OBJ_DIR)
+		@$(RM) $(TESTS_OBJ_DIR)
 		@$(RM) $(NAME)
 
 clean : clean-objs

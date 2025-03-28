@@ -6,12 +6,13 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 10:06:39 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/28 13:13:04 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:16:03 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fprintf.h"
-#include "im_gui_minilibx.h"
+# include "igmlx.h"
+#include "intern.h"
 #include <X11/X.h>
 #include <stdio.h>
 
@@ -21,9 +22,13 @@ int	destroy_close(t_mlx *mlx)
 	return (0);
 }
 
-int main_loop(t_mlx *mlx)
+t_igmlx_button_component *button;
+
+int main_loop(t_igmlx *igmlx)
 {
-	(void)mlx;
+	(void)igmlx;
+	igmlx_render(igmlx);
+	// ft_fprintf(STDOUT_FILENO, "loop 1\n");
 	return (0);
 }
 
@@ -41,12 +46,19 @@ int	main(void)
 		mlx_destroy_display(mlx.instance);
 		free(mlx.instance);
 	}
+	igmlx = igmlx_init(mlx.instance);
+	igmlx_hook(igmlx);
+
+	button = create_button(igmlx, mlx.window);
+
 	mlx_hook(mlx.window, DestroyNotify, 0, destroy_close, &mlx);
-	igmlx = igmlx_hook(&mlx);
-	mlx_loop_hook(mlx.instance, main_loop, &mlx);
+	mlx_loop_hook(igmlx->mlx, main_loop, igmlx);
 	mlx_loop(mlx.instance);
+
+	igmlx_destroy(igmlx);
 	mlx_destroy_window(mlx.instance, mlx.window);
 	mlx_destroy_display(mlx.instance);
+
 	free(mlx.instance);
 	return (0);
 }

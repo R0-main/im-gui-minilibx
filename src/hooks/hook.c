@@ -6,14 +6,16 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:13:26 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/28 13:26:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/28 15:31:25 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intern.h"
 
-bool		igmlx_hook(t_igmlx *igmlx)
+void		igmlx_hook(t_igmlx *igmlx)
 {
-	mlx_loop_hook(igmlx->mlx, igmlx_loop, igmlx);
-	
+	_log(IGMLX_LOG_INFO, "Hooking...");
+	(void)igmlx;
+	// mlx_loop_hook(igmlx->mlx, igmlx_loop, igmlx);
+	_log(IGMLX_LOG_INFO, "Hooked !");
 }

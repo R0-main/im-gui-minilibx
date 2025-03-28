@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:22:48 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/28 13:23:54 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:22:08 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,5 @@
 int	igmlx_render(t_igmlx *igmlx)
 {
 	(void)igmlx;
+	return (0);
 }
