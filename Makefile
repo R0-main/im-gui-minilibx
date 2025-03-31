@@ -33,9 +33,11 @@ SRCS				=	src/main.c\
 						src/init.c\
 						src/components/button/button.c\
 						src/components/checkbox/checkbox.c\
+						src/components/state.c\
 						src/components/utils.c\
 						src/hooks/hook.c\
 						src/logs/logs.c\
+						src/rendering/pre_render.c\
 						src/rendering/render.c
 
 TESTS				=	tests/main.c
@@ -82,7 +84,7 @@ $(FT_LIBC) :
 	@if [ ! -e "$(shell dirname $@)" ]; then \
 		git clone git@github.com:R0-main/ft_libc.git $(shell dirname $@); \
 	fi;
-	@$(MAKE) $(shell dirname $@) SAFE=1
+	@$(MAKE) $(shell dirname $@) SAFE=0
 
 $(MLX_LIB):
 	@if [ ! -e "$($@)" ]; then \
