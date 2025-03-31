@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:22:48 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 11:33:34 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:52:01 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ static void	render_component(t_igmlx *igmlx, void *win,
 
 	if (!component)
 		return ;
+	if (component->base.last_change_state_timer.started
+		&& is_timer_finished(&component->base.last_change_state_timer))
+	{
+		if (is_inside_rectangle(component->base.pos,
+				(t_uvec_2){component->base.collision_box.x
+				+ component->base.pos.x, component->base.collision_box.y
+				+ component->base.pos.y}, igmlx->mouse_pos))
+			component->base.state = IGMLX_STATE_HOVERED;
+		else
+		component->base.state = IGMLX_STATE_DEFAULT;
+		component->base.last_change_state_timer.started = false;
+	}
 	img = get_component_image(component);
 	if (!img)
 		return ;
@@ -45,6 +57,9 @@ static void	render_window_components(t_igmlx *igmlx, void *win)
 
 int	igmlx_render(t_igmlx *igmlx, void *win)
 {
+	mlx_mouse_get_pos(igmlx->mlx, win, (int *)&igmlx->mouse_pos.x,
+		(int *)&igmlx->mouse_pos.y);
 	render_window_components(igmlx, win);
+	igmlx->last_mouse_pos = igmlx->mouse_pos;
 	return (0);
 }

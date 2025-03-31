@@ -30,11 +30,15 @@ MLX_LIB_PATH 		= ./libs/minilibx_linux/
 
 SRCS				=	src/main.c\
 						src/loop.c\
+						src/mouse.c\
 						src/init.c\
+						src/utils/rectangle.c\
 						src/components/button/button.c\
 						src/components/checkbox/checkbox.c\
 						src/components/state.c\
+						src/components/getter.c\
 						src/components/utils.c\
+						src/utils/timer/timer.c\
 						src/hooks/hook.c\
 						src/logs/logs.c\
 						src/rendering/pre_render.c\
@@ -107,11 +111,12 @@ clean-objs :
 
 clean : clean-objs
 		@$(MAKE) $(shell dirname $(FT_LIBC)) fclean
-		@make fclean -C $(MLX_LIB_PATH) --no-print-directory
+		@make clean -C $(MLX_LIB_PATH) --no-print-directory
 
 fclean : clean
 		@$(RM) $(NAME)
+		@$(RM) $(TESTS_OBJS) ./tests.out
 
 re : fclean all
 
-.PHONY: all clean fclean re header tests
+.PHONY: all clean fclean re header tests clean-objs
