@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:13:26 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 14:13:35 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:10:13 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	hook_each_windows(t_igmlx *igmlx)
 
 void	igmlx_hook(t_igmlx *igmlx)
 {
-	// _log(IGMLX_LOG_INFO, "Hooking...");
 	hook_each_windows(igmlx);
 	// mlx_loop_hook(igmlx->mlx, igmlx_loop, igmlx);
-	_log(IGMLX_LOG_INFO, "Hooked !");
+	_info("Hooked !");
 }

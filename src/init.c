@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:21:41 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 11:27:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:07:46 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ t_igmlx	*igmlx_init(void *mlx)
 {
 	t_igmlx	*igmlx;
 
-	igmlx = malloc(sizeof(t_igmlx));
+	igmlx = balloc(sizeof(t_igmlx));
 	if (!igmlx)
 		return (NULL);
-	ft_bzero(igmlx, sizeof(t_igmlx));
 	igmlx->mlx = mlx;
 	return (igmlx);
 }
@@ -57,7 +56,7 @@ void	igmlx_destroy(t_igmlx *igmlx)
 	t_list	*current;
 	t_list	*tmp;
 
-	_log(IGMLX_LOG_INFO, "Destroyed !");
+	_info("Destroyed !");
 	if (!igmlx)
 		return ;
 	current = igmlx->wins_data;

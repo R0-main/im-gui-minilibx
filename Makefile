@@ -38,7 +38,10 @@ SRCS				=	src/main.c\
 						src/components/state.c\
 						src/components/getter.c\
 						src/components/utils.c\
+						src/imgs/manipulation.c\
+						src/fonts/font_loader.c\
 						src/utils/timer/timer.c\
+						src/utils/alloc/balloc.c\
 						src/hooks/hook.c\
 						src/logs/logs.c\
 						src/rendering/pre_render.c\

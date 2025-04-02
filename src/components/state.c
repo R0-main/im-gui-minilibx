@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:03:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 15:48:51 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:09:03 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_img	*create_image_from_state(t_igmlx *igmlx,
 			component->base.collision_box.y);
 	if (!img)
 	{
-		_log(IGMLX_LOG_WARNING, "mlx_new_image failed !");
+		_error("mlx_new_image failed !");
 		return (NULL);
 	}
 	while (c.x < component->base.collision_box.x)

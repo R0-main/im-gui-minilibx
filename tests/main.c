@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 10:06:39 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 15:53:09 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:27:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,21 @@ int	main_loop(t_data *data)
 	return (0);
 }
 
+void	on_press1(t_data *data)
+{
+	(void)data;
+	data->clicks--;
+	// button->base.states[IGMLX_STATE_PRESSED].backgroud_color += 0x33;
+	// pre_render_components(data->igmlx); // only for one
+	ft_fprintf(STDOUT_FILENO, "Pressed button\n");
+}
+
 void	on_press(t_data *data)
 {
 	(void)data;
 	data->clicks++;
-	button->base.states[IGMLX_STATE_PRESSED].backgroud_color += 0x33;
-	pre_render_components(data->igmlx); // only for one
+	// button->base.states[IGMLX_STATE_PRESSED].backgroud_color += 0x33;
+	// pre_render_components(data->igmlx); // only for one
 	ft_fprintf(STDOUT_FILENO, "Pressed button\n");
 }
 
@@ -68,12 +77,15 @@ int	main(void)
 	button->base.pos = (t_uvec_2){150, 150};
 	button->base.states[IGMLX_STATE_DEFAULT].backgroud_color = 0x00FFFF;
 	button->base.states[IGMLX_STATE_HOVERED].backgroud_color = 0xFFFF00;
+	button->data = &data;
+	button->delay = 1000;
+	button->press = (void (*)(void *))on_press1;
 	button = create_button(data.igmlx, data.mlx.window);
 	button->base.pos = (t_uvec_2){250, 150};
 	button->base.states[IGMLX_STATE_DEFAULT].backgroud_color = 0xFFFFFF;
 	button->base.states[IGMLX_STATE_HOVERED].backgroud_color = 0x00FFFF;
 	button->base.states[IGMLX_STATE_PRESSED].backgroud_color = 0x00FF00;
-	button->base.state = IGMLX_STATE_PRESSED;
+	// button->base.state = IGMLX_STATE_PRESSED;
 	button->base.states[IGMLX_STATE_DEFAULT].borders_radius[IGMLX_CORNER_TOP_LEFT] = 75;
 	// 75% rounded
 	// button->base.states[IGMLX_STATE_HOVERED].collision_box = (t_uvec_2){75,
@@ -82,6 +94,7 @@ int	main(void)
 	button->press = (void (*)(void *))on_press;
 	pre_render_components(data.igmlx);
 	igmlx_hook(data.igmlx);
+	igmlx_load_font(data.igmlx, "fonts/default.xpm");
 	// button->base.collision_box = (t_vec_2){150, 150};
 	mlx_hook(data.mlx.window, DestroyNotify, 0, destroy_close, &data.mlx);
 	mlx_loop_hook(data.mlx.instance, main_loop, &data);

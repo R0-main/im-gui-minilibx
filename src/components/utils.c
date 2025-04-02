@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:04:57 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 10:40:12 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:08:11 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ t_win_data	*create_window_data(t_igmlx *igmlx, void *win)
 {
 	t_win_data	*data;
 
-	data = malloc(sizeof(t_win_data));
+	data = balloc(sizeof(t_win_data));
 	if (!data)
-		return (NULL);
-	ft_bzero(data, sizeof(t_win_data));
+		return (_error("create window data failed!"), NULL);
 	data->win = win;
 	ft_lstadd_front(&igmlx->wins_data, ft_lstnew(data));
 	return (data);
@@ -49,7 +48,7 @@ bool	add_to_window_data(t_igmlx *igmlx, void *win, void *component)
 	if (!data)
 	{
 		data = create_window_data(igmlx, win);
-		_log(IGMLX_LOG_DEBUG, "Created win lst");
+		_debug( "Created win lst");
 	}
 	if (data)
 		ft_lstadd_front(&data->components, ft_lstnew(component));

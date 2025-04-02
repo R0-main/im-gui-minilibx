@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 15:44:37 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:20:06 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_fprintf.h"
 # include "igmlx.h"
 # include "libft.h"
+# include "limits.h"
 # include "timer.h"
 
 # define IGMLX_LOG_PREFIX "IGMLX"
@@ -56,7 +57,7 @@
 									NULL,                                    \
 								},                                           \
 							}},                                              \
-			NULL, NULL, NULL, NULL, NULL,                                    \
+			150, NULL, NULL, NULL, NULL, NULL,                               \
 	}
 
 typedef int						t_color;
@@ -99,6 +100,13 @@ typedef enum e_igmlx_component_type
 	IGMLX_COMPONENT_BUTTON,
 }								t_e_igmlx_component_type;
 
+typedef struct s_igmlx_font
+{
+	t_img						*letters[CHAR_MAX];
+	t_color						color;
+	int							size_mutliplier;
+}								t_igmlx_font;
+
 typedef struct s_igmlx_component_state
 {
 	t_color						backgroud_color;
@@ -128,6 +136,7 @@ typedef struct s_igmlx_default_component
 typedef struct s_igmlx_button_component
 {
 	t_igmlx_component			base;
+	int							delay;
 	void						*data;
 	void						(*press)(void *);
 	void						(*touch)(void *);
@@ -145,6 +154,7 @@ typedef struct s_igmlx
 {
 	void						*mlx;
 	t_list						*wins_data;
+	t_list						*fonts;
 	t_uvec_2					mouse_pos;
 	t_uvec_2					last_mouse_pos;
 	t_igmlx_default_component	*last_hovered_component;
@@ -176,8 +186,15 @@ t_igmlx_default_component		*get_win_component_at(t_igmlx *igmlx, void *win,
 
 t_igmlx_default_component		*get_component_at(t_igmlx *igmlx,
 									t_uvec_2 coords);
+// FONTS
+void							igmlx_load_font(t_igmlx *igmlx,
+								 char *path);
 
 // UTILS
+void							igmlx_copy_to_dest(t_img *origin,
+									t_uvec_2 origin_pos, t_uvec_2 length,
+									t_img *dest, t_uvec_2 dest_pos);
+void							*balloc(size_t size);
 bool							is_inside_rectangle(t_uvec_2 p1, t_uvec_2 p2,
 									t_uvec_2 target);
 

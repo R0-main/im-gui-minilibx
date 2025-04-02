@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:22:14 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 15:48:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:09:24 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void pre_render_components(t_igmlx *igmlx)
 {
 	t_list	*current;
 
-	_log(IGMLX_LOG_INFO, "Pre Rendering ...");
+	_info("Pre Rendering ...");
 	if (!igmlx)
 		return ;
 	current = igmlx->wins_data;
@@ -40,5 +40,5 @@ void pre_render_components(t_igmlx *igmlx)
 		for_each_components(igmlx, &((t_win_data *)current->content)->components);
 		current = current->next;
 	}
-	_log(IGMLX_LOG_INFO, "Components PreRendered");
+	_info("Components PreRendered");
 }
