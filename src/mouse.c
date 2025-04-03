@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:54:47 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/02 12:08:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/03 09:23:15 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	mouse_motion(int x, int y, t_igmlx *igmlx)
 {
 	t_igmlx_default_component	*component;
 
-	_debug("Mouse Moved");
+	// _debug("Mouse Moved");
 	component = get_component_at(igmlx, (t_uvec_2){(unsigned int)x,
 			(unsigned int)y});
 	if (component && component == igmlx->last_hovered_component)

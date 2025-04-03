@@ -2,6 +2,7 @@
 	"files.associations": {
 		"intern.h": "c",
 		"igmlx.h": "c",
-		"ft_fprintf.h": "c"
+		"ft_fprintf.h": "c",
+		"libft.h": "c"
 	}
 }

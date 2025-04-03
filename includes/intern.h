@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/02 12:20:06 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:46:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,18 @@ typedef enum e_igmlx_component_type
 typedef struct s_igmlx_font
 {
 	t_img						*letters[CHAR_MAX];
+	char						*path;
 	t_color						color;
 	int							size_mutliplier;
+	t_uvec_2					length;
+	t_uvec_2					inner_offset;
 }								t_igmlx_font;
+
+typedef struct s_igmlx_font_params
+{
+	t_color						color;
+	t_uvec_2					inner_offset;
+}								t_igmlx_font_params;
 
 typedef struct s_igmlx_component_state
 {
@@ -150,6 +159,18 @@ typedef struct s_win_data
 	t_list						*components;
 }								t_win_data;
 
+typedef struct s_img_block
+{
+	t_img						*img;
+	t_uvec_2					offset;
+	struct s_img_block			*next;
+}								t_img_block;
+
+typedef struct s_alpha_img
+{
+	t_img_block					*blocks;
+}								t_alpha_img;
+
 typedef struct s_igmlx
 {
 	void						*mlx;
@@ -181,16 +202,23 @@ int								release_mouse(int key, int x, int y,
 int								press_mouse(int key, int x, int y,
 									t_igmlx *igmlx);
 
+void							igmlx_destroy_component_list(t_igmlx *igmlx,
+									t_list **components);
+void							igmlx_destroy(t_igmlx *igmlx);
 t_igmlx_default_component		*get_win_component_at(t_igmlx *igmlx, void *win,
 									t_uvec_2 coords);
 
 t_igmlx_default_component		*get_component_at(t_igmlx *igmlx,
 									t_uvec_2 coords);
 // FONTS
-void							igmlx_load_font(t_igmlx *igmlx,
-								 char *path);
+void							igmlx_destroy_fonts_list(t_igmlx *igmlx,
+									t_list **fonts);
+
+t_igmlx_font					*get_font(t_igmlx *igmlx, char *path);
 
 // UTILS
+t_color							get_pixel_color(t_img *img, t_uvec_2 pos);
+t_color							*get_pixel(t_img *img, t_uvec_2 pos);
 void							igmlx_copy_to_dest(t_img *origin,
 									t_uvec_2 origin_pos, t_uvec_2 length,
 									t_img *dest, t_uvec_2 dest_pos);

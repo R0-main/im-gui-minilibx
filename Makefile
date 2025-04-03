@@ -32,14 +32,19 @@ SRCS				=	src/main.c\
 						src/loop.c\
 						src/mouse.c\
 						src/init.c\
+						src/destroy/destroy.c\
 						src/utils/rectangle.c\
 						src/components/button/button.c\
 						src/components/checkbox/checkbox.c\
+						src/components/destroy_components.c\
 						src/components/state.c\
 						src/components/getter.c\
 						src/components/utils.c\
 						src/imgs/manipulation.c\
 						src/fonts/font_loader.c\
+						src/fonts/get.c\
+						src/fonts/print.c\
+						src/fonts/destroy_fonts.c\
 						src/utils/timer/timer.c\
 						src/utils/alloc/balloc.c\
 						src/hooks/hook.c\

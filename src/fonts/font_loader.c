@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:12:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/02 12:34:31 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/03 09:53:38 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,55 @@ static void	init_letters_images(t_igmlx *igmlx, t_igmlx_font *font,
 		t_img *font_img)
 {
 	char c;
+	int y;
+	int x;
 
 	c = -1;
-	while (++c <= CHAR_MAX)
+	y = 0;
+	x = 0;
+	while (++c < CHAR_MAX)
 	{
-		font->letters[c] = mlx_new_image(igmlx->mlx, 48, 48);
-		if (!font->letters[c])
+		font->letters[(int)c] = mlx_new_image(igmlx->mlx, 32, 32);
+		if (!font->letters[(int)c])
 		{
 			_error("mlx_new_image failed!");
 			return ;
 		}
-		igmlx_copy_to_dest(font_img, (t_uvec_2){(c * 48) % (8 * 48), (c * 48) % (16 * 48)}, (t_uvec_2){48, 48}, font->letters[c], (t_uvec_2){0, 0});
+		if (x == 16)
+		{
+			y++;
+			x = 0;
+		}
+		igmlx_copy_to_dest(font_img, (t_uvec_2){x * 32, y * 32}, (t_uvec_2){32, 32}, font->letters[(int)c], (t_uvec_2){0, 0});
+		x++;
 	}
 }
 
-void	igmlx_load_font(t_igmlx *igmlx, char *path)
+void	igmlx_load_font(t_igmlx *igmlx, char *path, t_igmlx_font_params params)
 {
 	t_igmlx_font	*font;
 	t_img			*img;
 
+	if (!path)
+		return;
+	if (get_font(igmlx, path))
+	{
+		_warning("tried to load the same font twice!");
+		return ;
+	}
 	font = balloc(sizeof(t_igmlx_font));
 	if (!font)
 		return ;
-	img = mlx_xpm_file_to_image(igmlx->mlx, path, NULL, NULL);
+	font->color = params.color;
+	font->inner_offset = params.inner_offset;
+	font->path = path;
+	img = mlx_xpm_file_to_image(igmlx->mlx, path, (int *)&font->length.x, (int *)&font->length.y);
 	if (!img)
 	{
 		_error("failed to load xpm file of a font");
 		return ;
 	}
 	init_letters_images(igmlx, font, img);
+	mlx_destroy_image(igmlx->mlx, img);
 	ft_lstadd_front(&igmlx->fonts, ft_lstnew(font));
 }
