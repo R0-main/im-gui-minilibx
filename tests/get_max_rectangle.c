@@ -5,61 +5,94 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 12:14:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 12:27:30 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/04/03 02:04:05 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/04/03 15:09:27 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-int get_tall(int **tab, int x, int height)
+int	get_tall(int *tab, int x, int height, int y_max)
 {
-	int y = height - 1;
-	int total = 0;
+	int	y;
+	int	total;
 
-	printf("%d\n", tab[3][0]);
-	while (y > 0)
+	y = y_max;
+	total = 0;
+	while (y >= 0)
 	{
-		total += tab[y--][x];
+		if (tab[y * 5 + x] == 0)
+			break ;
+		total += tab[y * 5 + x];
+		y--;
 	}
-	printf("%d\n", total);
 	return (total);
 }
 
-int get_max_area(int **tab,  int width, int height)
+int	get_max_area(int *tab, int width, int height, int y_max)
 {
-	int x = 0;
-	int x2 = 0;
-	int x3 = 0;
-	int y = 0;
-	int max = 0;
+	int	x;
+	int	x2;
+	int	x3;
+	int	y;
+	int	max;
+	int	maxX;
+	int	maxY;
+	int	current_tall;
 
-	int current_tall = 0;
-
+	x = 0;
+	x2 = 0;
+	x3 = 0;
+	y = 0;
+	max = 0;
+	maxX = 0;
+	maxY = 0;
+	current_tall = 0;
 	while (x < width)
 	{
 		x2 = x;
-		current_tall = get_tall(tab, x, height);
-
-		while (x2 > 0 && get_tall(tab, x2 - 1, height) == current_tall)
+		current_tall = get_tall(tab, x, height, y_max);
+		printf("	%d | taille : %d\n", y_max, current_tall);
+		while (x2 > 0 && get_tall(tab, x2 - 1, height, y_max) >= current_tall)
 			x2--;
-		while (x2 > 0 && x2 < width && get_tall(tab, x2, height) == current_tall)
-			x2--;
-		max = x2 * current_tall;
+		x3 = x2;
+		while (x2 < width && get_tall(tab, x2, height, y_max) >= current_tall)
+			x2++;
+		if ((x2 - x3) * current_tall > max)
+		{
+			max = (x2 - x3) * current_tall;
+			maxX = x;
+			maxY = y;
+		}
+		x++;
 	}
+	printf("x : %d | y : %d\n", maxX, maxY);
+	printf("+-----------------------------+\n");
 	return (max);
 }
 
-int main(void)
+int	main(void)
 {
-	int tab[5][5] = {
-		{0, 0, 0, 0 ,0},
-		{0, 0, 1, 1 ,0},
-		{0, 0, 1, 1 ,0},
-		{1, 0, 1, 1 ,1},
-		{1, 1, 1, 1 ,1},
-	};
+	int	x;
+	int	y;
+	int	max;
 
-	printf("max area : %d\n", get_max_area(tab, 5, 5));
-	return 0;
+	int tab[5][5] = {
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 1, 0},
+		{1, 0, 1, 1, 0},
+		{1, 0, 1, 1, 0},
+		{0, 0, 1, 1, 0},
+	};
+	x = 0;
+	y = 0;
+	max = 0;
+	while (y < 5)
+	{
+		if (get_max_area((int *)tab, 5, 5, y) > max)
+			max = get_max_area((int *)tab, 5, 5, y);
+		y++;
+	}
+	printf("max area : %d\n", max);
+	return (0);
 }

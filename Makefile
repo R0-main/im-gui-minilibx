@@ -34,6 +34,8 @@ SRCS				=	src/main.c\
 						src/init.c\
 						src/destroy/destroy.c\
 						src/utils/rectangle.c\
+						src/alpha_images/alpha_images.c\
+						src/alpha_images/put.c\
 						src/components/button/button.c\
 						src/components/checkbox/checkbox.c\
 						src/components/destroy_components.c\
@@ -41,6 +43,7 @@ SRCS				=	src/main.c\
 						src/components/getter.c\
 						src/components/utils.c\
 						src/imgs/manipulation.c\
+						src/imgs/split.c\
 						src/fonts/font_loader.c\
 						src/fonts/get.c\
 						src/fonts/print.c\

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:30:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 11:50:00 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:46:50 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,27 @@ t_img_block	*transform_to_block(t_igmlx *igmlx, t_img *origin, t_uvec_2 pos,
 	return (block);
 }
 
-t_img_block	*get_blocks(t_igmlx *igmlx, t_img *origin, t_alpha_img *alpha)
+void get_blocks(t_igmlx *igmlx, t_img *origin, t_alpha_img *alpha)
 {
 	t_uvec_2 c;
-	t_uvec_2 end;
+	t_rectangle	max;
+	t_list	*lst;
+	t_img_block	*block;
 
 	c = (t_uvec_2){-1, -1};
-	while (++c.x < origin->width)
+	ft_bzero(&max, sizeof(t_rectangle));
+	max = get_largest_rectangle_available_img(origin);
+	while (max.area > 0)
 	{
-		c.y = -1;
-		while (++c.y < origin->height)
-		{
-			end = c;
-			if (get_pixel_color(origin, c) & 0x000000FF)
-				continue;
-			while (get_pixel(origin, end))
-			{
-				/* code */
-			}
-
-		}
+		block = transform_to_block(igmlx, origin, max.pos, max.length);
+		if (!block)
+			return ; // free others
+		lst = ft_lstnew(block);
+		if (!lst)
+			return ; // free others
+		ft_lstadd_front(&alpha->blocks, lst);
+		igmlx_set_to_null(origin, max.pos, max.length);
+		max = get_largest_rectangle_available_img(origin);
 	}
 }
 
@@ -62,6 +63,6 @@ t_alpha_img	*transform_img_to_alpha_img(t_igmlx *igmlx, t_img *img)
 	alpha = balloc(sizeof(t_alpha_img));
 	if (!alpha)
 		return (NULL);
-	alpha->blocks = get_blocks(igmlx, img, alpha);
+	get_blocks(igmlx, img, alpha);
 	return (alpha);
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 11:46:58 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:04:26 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,20 @@
 			150, NULL, NULL, NULL, NULL, NULL,                               \
 	}
 
-typedef int						t_color;
+typedef unsigned int						t_color;
 
 typedef struct s_uvec_2
 {
 	unsigned int				x;
 	unsigned int				y;
 }								t_uvec_2;
+
+typedef struct s_rectangle
+{
+	t_uvec_2					pos;
+	t_uvec_2					length;
+	int							area;
+}								t_rectangle;
 
 typedef enum e_igmlx_state
 {
@@ -100,9 +107,20 @@ typedef enum e_igmlx_component_type
 	IGMLX_COMPONENT_BUTTON,
 }								t_e_igmlx_component_type;
 
+typedef struct s_img_block
+{
+	t_img						*img;
+	t_uvec_2					offset;
+}								t_img_block;
+
+typedef struct s_alpha_img
+{
+	t_list						*blocks;
+}								t_alpha_img;
+
 typedef struct s_igmlx_font
 {
-	t_img						*letters[CHAR_MAX];
+	t_alpha_img					*letters[CHAR_MAX];
 	char						*path;
 	t_color						color;
 	int							size_mutliplier;
@@ -159,18 +177,6 @@ typedef struct s_win_data
 	t_list						*components;
 }								t_win_data;
 
-typedef struct s_img_block
-{
-	t_img						*img;
-	t_uvec_2					offset;
-	struct s_img_block			*next;
-}								t_img_block;
-
-typedef struct s_alpha_img
-{
-	t_img_block					*blocks;
-}								t_alpha_img;
-
 typedef struct s_igmlx
 {
 	void						*mlx;
@@ -216,7 +222,15 @@ void							igmlx_destroy_fonts_list(t_igmlx *igmlx,
 
 t_igmlx_font					*get_font(t_igmlx *igmlx, char *path);
 
+t_alpha_img						*transform_img_to_alpha_img(t_igmlx *igmlx,
+									t_img *img);
+
 // UTILS
+void							igmlx_put_alpha_to_window(t_igmlx *igmlx,
+									void *win, t_alpha_img *alpha,
+									t_uvec_2 pos);
+void							igmlx_set_to_null(t_img *origin,
+									t_uvec_2 origin_pos, t_uvec_2 length);
 t_color							get_pixel_color(t_img *img, t_uvec_2 pos);
 t_color							*get_pixel(t_img *img, t_uvec_2 pos);
 void							igmlx_copy_to_dest(t_img *origin,
@@ -225,5 +239,6 @@ void							igmlx_copy_to_dest(t_img *origin,
 void							*balloc(size_t size);
 bool							is_inside_rectangle(t_uvec_2 p1, t_uvec_2 p2,
 									t_uvec_2 target);
+t_rectangle						get_largest_rectangle_available_img(t_img *img);
 
 #endif
