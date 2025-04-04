@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 11:04:23 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:33:31 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ typedef struct s_igmlx_font
 	t_alpha_img					*letters[CHAR_MAX];
 	char						*path;
 	t_color						color;
-	int							size_mutliplier;
+	unsigned int				size_mutliplier;
 	t_uvec_2					length;
 	t_uvec_2					inner_offset;
 }								t_igmlx_font;
@@ -131,6 +131,7 @@ typedef struct s_igmlx_font
 typedef struct s_igmlx_font_params
 {
 	t_color						color;
+	unsigned int				size_multiplier;
 	t_uvec_2					inner_offset;
 }								t_igmlx_font_params;
 

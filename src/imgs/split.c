@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:18:34 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 12:06:56 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:29:32 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,17 @@ t_rectangle	get_max_area(t_img *img, int y_max)
 	{
 		x2 = (int)c.x;
 		current_tall = get_tall(img, (int)c.x, y_max);
-
 		while (x2 > 0 && get_tall(img, x2 - 1, y_max) >= current_tall)
 			x2--;
-
 		x3 = x2;
-		while (x2 >= 0 && x2 < img->width && get_tall(img, x2, y_max) >= current_tall)
+		while (x2 >= 0 && x2 < img->width && get_tall(img, x2,
+				y_max) >= current_tall)
 			x2++;
-		if ((x2 - x3) * current_tall > max.area)
-			max = (t_rectangle){(t_uvec_2){x3, (y_max - current_tall) + 1}, (t_uvec_2){(x2 - x3),
-				current_tall}, (x2 - x3) * current_tall};
+		if (x2 - x3 > 0 && (x2 - x3) * current_tall > max.area)
+		{
+			max = (t_rectangle){(t_uvec_2){x3, (y_max - current_tall) + 1},
+				(t_uvec_2){(x2 - x3), (current_tall)}, (x2 - x3) * (current_tall)};
+		}
 		c.x++;
 	}
 	return (max);
@@ -77,7 +78,8 @@ t_rectangle	get_largest_rectangle_available_img(t_img *img)
 			max = tmp;
 		y++;
 	}
-	// printf("max area : %d at x : %d, y : %d | w : %d, h : %d\n", max.area,
-	// 	max.pos.x, max.pos.y, max.length.x, max.length.y);
+	// if (*get_pixel(img, max.pos) & 0xFF)
+	// 	max.area = 0;
+	// printf("x : %u | y : %u | Lenght (%u, %u) %u\n", max.pos.x, max.pos.y, max.length.x, max.length.y, max.area);
 	return (max);
 }

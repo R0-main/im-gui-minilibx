@@ -6,6 +6,8 @@
 		"libft.h": "c",
 		"stdbool.h": "c",
 		"mlx_int.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"colors.h": "c",
+		"types.h": "c"
 	}
 }

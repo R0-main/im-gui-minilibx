@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 12:11:32 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 12:06:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:26:34 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	igmlx_apply_color_filter(t_img *img, t_color filter)
 	c = (t_uvec_2){-1, -1};
 	while (++c.x < (unsigned int)img->width)
 	{
-		c.y = 0;
+		c.y = -1;
 		while (++c.y < (unsigned int)img->height)
 		{
 			if (*get_pixel(img, c) != 0xFF000000)

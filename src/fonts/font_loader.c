@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:12:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 12:05:01 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:28:44 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	init_letters_images(t_igmlx *igmlx, t_igmlx_font *font,
 	int y;
 	int x;
 	t_img *tmp;
+	t_img *upscaled;
 
 	c = -1;
 	y = 0;
@@ -38,8 +39,10 @@ static void	init_letters_images(t_igmlx *igmlx, t_igmlx_font *font,
 		}
 		igmlx_copy_to_dest(font_img, (t_uvec_2){x * 32, y * 32}, (t_uvec_2){32, 32}, tmp, (t_uvec_2){0, 0});
 		igmlx_apply_color_filter(tmp, font->color);
-		font->letters[(int)c] = transform_img_to_alpha_img(igmlx, tmp);
+		upscaled = igmlx_upscale_img(igmlx, tmp, font->size_mutliplier);
 		mlx_destroy_image(igmlx->mlx, tmp);
+		font->letters[(int)c] = transform_img_to_alpha_img(igmlx, upscaled);
+		mlx_destroy_image(igmlx->mlx, upscaled);
 		x++;
 	}
 }
@@ -60,6 +63,7 @@ void	igmlx_load_font(t_igmlx *igmlx, char *path, t_igmlx_font_params params)
 	if (!font)
 		return ;
 	font->color = params.color;
+	font->size_mutliplier = params.size_multiplier;
 	font->inner_offset = params.inner_offset;
 	font->path = path;
 	img = mlx_xpm_file_to_image(igmlx->mlx, path, (int *)&font->length.x, (int *)&font->length.y);

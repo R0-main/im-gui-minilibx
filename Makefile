@@ -2,7 +2,7 @@
 NAME				=	im-gui-minilibx.a
 CC					=	clang
 
-CFLAGS				=	-Wall -Werror -Wextra -Ilibs/ft_libc/includes -Ilibs/minilibx_linux -Iincludes -fPIE -g
+CFLAGS				=	-Wall -Werror -Wextra -O3 -O2 -ffast-math -march=native -Ilibs/ft_libc/includes -Ilibs/minilibx_linux -Iincludes -fPIE -g
 CMLX_FLAGS				= -lXext -lX11 -lm -lz
 RM					=	rm -rf
 MAKE				=	make --no-print-directory -C
@@ -33,6 +33,7 @@ SRCS				=	src/main.c\
 						src/mouse.c\
 						src/init.c\
 						src/destroy/destroy.c\
+						src/upscaler/upscaler.c\
 						src/utils/rectangle.c\
 						src/alpha_images/alpha_images.c\
 						src/alpha_images/put.c\
@@ -111,7 +112,7 @@ $(MLX_LIB):
 
 tests : $(TESTS_OBJS) $(NAME) $(FT_LIBC) $(MLX_LIB)
 	@$(RM) tests.out
-	@$(CC) $(CFLAGS) $(TESTS_OBJS) $(NAME) $(FT_LIBC) $(MLX_LIB) $(CMLX_FLAGS) -o tests.out
+	@$(CC) $(CMLX_FLAGS) $(CFLAGS) $(TESTS_OBJS) $(NAME) $(FT_LIBC) $(MLX_LIB) -o tests.out
 
 dev	 : clean-objs all tests
 	valgrind --track-fds=yes --trace-children=yes --show-leak-kinds=all --leak-check=full -q ./tests.out

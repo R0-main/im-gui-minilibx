@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:30:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 10:35:43 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:26:06 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@ t_img_block	*transform_to_block(t_igmlx *igmlx, t_img *origin, t_uvec_2 pos,
 
 void get_blocks(t_igmlx *igmlx, t_img *origin, t_alpha_img *alpha)
 {
-	t_uvec_2 c;
 	t_rectangle	max;
 	t_list	*lst;
 	t_img_block	*block;
 
-	c = (t_uvec_2){-1, -1};
 	ft_bzero(&max, sizeof(t_rectangle));
 	max = get_largest_rectangle_available_img(origin);
 	while (max.area > 0)

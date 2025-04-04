@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 10:06:39 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 12:04:40 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:31:42 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,22 @@ int	main(void)
 		/* code */
 	}
 	mlx_put_image_to_window(data.mlx.instance, data.mlx.window, background, 0, 0);
-	igmlx_load_font(data.igmlx, "/home/rguigneb/pppprojects/im-gui-minilibx/fonts/default.xpm", (t_igmlx_font_params){0x00FF0000, (t_uvec_2){-35, 0}});
-	igmlx_put_str(data.igmlx, (char *)"teswqfqfqwfqfqwfqfqwfqfwq", "/home/rguigneb/pppprojects/im-gui-minilibx/fonts/default.xpm", data.mlx.window, (t_uvec_2){0, 0});
-	// t_img *tmp;
+
+
+	igmlx_load_font(data.igmlx, "/home/rguigneb/pppprojects/im-gui-minilibx/fonts/default.xpm", (t_igmlx_font_params){0x00FF00, 2, (t_uvec_2){-10, 0}});
+	igmlx_put_str(data.igmlx, (char *)"teswqfqfqwfqfqwfqfqwfqfwq", "/home/rguigneb/pppprojects/im-gui-minilibx/fonts/default.xpm", data.mlx.window, (t_uvec_2){0, 450});
+
+
+	t_img *tmp;
+	int i;
+
+	tmp = mlx_xpm_file_to_image(data.mlx.instance, "/home/rguigneb/pppprojects/im-gui-minilibx/fonts/test.xpm", &i, &i);
+	mlx_put_image_to_window(data.mlx.instance, data.mlx.window, tmp, 0, 0);
+
+	tmp = igmlx_upscale_img(data.igmlx, tmp, 10);
+	igmlx_apply_color_filter(tmp, 0xFF0000);
+	t_alpha_img *test = transform_img_to_alpha_img(data.igmlx, tmp);
+	igmlx_put_alpha_to_window(data.igmlx, data.mlx.window, test, (t_uvec_2){150, 500});
 
 	// tmp = mlx_new_image(data.mlx.instance, 100, 100);
 	// for (size_t i = 10; i < 90; i++)

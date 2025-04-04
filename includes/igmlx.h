@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 11:40:56 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:33:56 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ t_color									igmlx_melt_colors(t_color input,
 											t_color filter);
 void									igmlx_apply_color_filter(t_img *img,
 											t_color filter);
+
+t_img									*igmlx_upscale_img(t_igmlx *igmlx,
+											t_img *img, unsigned int factor);
 
 void									_info(const char *msg);
 
