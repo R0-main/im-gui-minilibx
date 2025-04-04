@@ -36,6 +36,7 @@ SRCS				=	src/main.c\
 						src/utils/rectangle.c\
 						src/alpha_images/alpha_images.c\
 						src/alpha_images/put.c\
+						src/alpha_images/free_alpha.c\
 						src/components/button/button.c\
 						src/components/checkbox/checkbox.c\
 						src/components/destroy_components.c\

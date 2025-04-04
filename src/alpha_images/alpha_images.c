@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:30:21 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 14:46:50 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 10:35:43 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void get_blocks(t_igmlx *igmlx, t_img *origin, t_alpha_img *alpha)
 		lst = ft_lstnew(block);
 		if (!lst)
 			return ; // free others
+		block->offset = max.pos;
 		ft_lstadd_front(&alpha->blocks, lst);
 		igmlx_set_to_null(origin, max.pos, max.length);
 		max = get_largest_rectangle_available_img(origin);

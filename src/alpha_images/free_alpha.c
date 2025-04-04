@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put.c                                              :+:      :+:    :+:   */
+/*   free_alpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 14:49:12 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 10:38:38 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/04/04 11:01:37 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/04/04 11:14:18 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intern.h"
 
-void igmlx_put_alpha_to_window(t_igmlx *igmlx, void *win, t_alpha_img *alpha, t_uvec_2 pos)
+void	igmlx_free_alpha(t_igmlx *igmlx, t_alpha_img *alpha)
 {
-	t_list *lst;
-	t_img_block *tmp;
+	t_list		*lst;
+	t_list		*tmp_lst;
+	t_img_block	*tmp;
 
+	if (!alpha)
+		return ;
 	lst = alpha->blocks;
 	while (lst)
 	{
+		tmp_lst = lst->next;
 		tmp = (t_img_block *)lst->content;
 		if (tmp && tmp->img)
-			mlx_put_image_to_window(igmlx->mlx, win, tmp->img, pos.x + tmp->offset.x, pos.y + tmp->offset.y);
-		lst = lst->next;
+		{
+			mlx_destroy_image(igmlx->mlx, tmp->img);
+			free(tmp);
+		}
+		free(lst);
+		lst = tmp_lst;
 	}
+	free(alpha);
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 09:55:13 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:40:56 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ typedef struct s_mlx
 
 typedef struct s_igmlx					t_igmlx;
 typedef struct s_uvec_2					t_uvec_2;
+typedef unsigned int					t_color;
 typedef struct s_igmlx_button_component	t_igmlx_button_component;
 typedef struct s_igmlx_font_params		t_igmlx_font_params;
+typedef struct s_alpha_img				t_alpha_img;
 
 t_igmlx									*igmlx_init(void *mlx);
 void									igmlx_destroy(t_igmlx *igmlx);
@@ -43,7 +45,16 @@ void									igmlx_load_font(t_igmlx *igmlx,
 void									igmlx_put_str(t_igmlx *igmlx, char *str,
 											char *font_name, void *win,
 											t_uvec_2 pos);
-;
+
+void									igmlx_free_alpha(t_igmlx *igmlx,
+											t_alpha_img *alpha);
+void									igmlx_put_alpha_to_window(t_igmlx *igmlx,
+											void *win, t_alpha_img *alpha,
+											t_uvec_2 pos);
+t_color									igmlx_melt_colors(t_color input,
+											t_color filter);
+void									igmlx_apply_color_filter(t_img *img,
+											t_color filter);
 
 void									_info(const char *msg);
 

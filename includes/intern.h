@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 15:04:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:04:23 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 			150, NULL, NULL, NULL, NULL, NULL,                               \
 	}
 
-typedef unsigned int						t_color;
+typedef unsigned int			t_color;
 
 typedef struct s_uvec_2
 {
@@ -226,9 +226,7 @@ t_alpha_img						*transform_img_to_alpha_img(t_igmlx *igmlx,
 									t_img *img);
 
 // UTILS
-void							igmlx_put_alpha_to_window(t_igmlx *igmlx,
-									void *win, t_alpha_img *alpha,
-									t_uvec_2 pos);
+
 void							igmlx_set_to_null(t_img *origin,
 									t_uvec_2 origin_pos, t_uvec_2 length);
 t_color							get_pixel_color(t_img *img, t_uvec_2 pos);

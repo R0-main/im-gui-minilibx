@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:12:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 15:04:17 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:05:01 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	init_letters_images(t_igmlx *igmlx, t_igmlx_font *font,
 	c = -1;
 	y = 0;
 	x = 0;
-	// printf("%d", ((unsigned int *)font_img->data)[0] == 0xFF000000);
 	while (++c < CHAR_MAX)
 	{
 		tmp = mlx_new_image(igmlx->mlx, 32, 32);
@@ -38,7 +37,9 @@ static void	init_letters_images(t_igmlx *igmlx, t_igmlx_font *font,
 			x = 0;
 		}
 		igmlx_copy_to_dest(font_img, (t_uvec_2){x * 32, y * 32}, (t_uvec_2){32, 32}, tmp, (t_uvec_2){0, 0});
+		igmlx_apply_color_filter(tmp, font->color);
 		font->letters[(int)c] = transform_img_to_alpha_img(igmlx, tmp);
+		mlx_destroy_image(igmlx->mlx, tmp);
 		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 10:06:39 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 15:11:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:04:40 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,17 +105,35 @@ int	main(void)
 		/* code */
 	}
 	mlx_put_image_to_window(data.mlx.instance, data.mlx.window, background, 0, 0);
-	// igmlx_load_font(data.igmlx, "fonts/default.xpm", (t_igmlx_font_params){0x000000, (t_uvec_2){35, 0}});
-	// igmlx_put_str(data.igmlx, (char *)"t", "fonts/default.xpm", data.mlx.window, (t_uvec_2){0, 0});
-	t_img *tmp;
+	igmlx_load_font(data.igmlx, "/home/rguigneb/pppprojects/im-gui-minilibx/fonts/default.xpm", (t_igmlx_font_params){0x00FF0000, (t_uvec_2){-35, 0}});
+	igmlx_put_str(data.igmlx, (char *)"teswqfqfqwfqfqwfqfqwfqfwq", "/home/rguigneb/pppprojects/im-gui-minilibx/fonts/default.xpm", data.mlx.window, (t_uvec_2){0, 0});
+	// t_img *tmp;
 
-	tmp = mlx_new_image(data.mlx.instance, 10, 10);
-	*get_pixel(tmp, (t_uvec_2){0, 0}) = 0x00FF00FF;
-	t_alpha_img *alpha;
+	// tmp = mlx_new_image(data.mlx.instance, 100, 100);
+	// for (size_t i = 10; i < 90; i++)
+	// {
+	// 	for (size_t j = 10; j < 90; j++)
+	// 	{
+	// 		*get_pixel(tmp, (t_uvec_2){i, j}) = 0x00FF00FF;
+	// 	}
+	// }
 
-	alpha = transform_img_to_alpha_img(data.igmlx, tmp);
-	igmlx_put_alpha_to_window(data.igmlx, data.mlx.window, alpha, (t_uvec_2){0, 0});
-	// igmlx_load_font(data.igmlx, "fonts/default.xpm");
+	// for (size_t i = 0; i < 5; i++)
+	// {
+	// 	for (size_t j = 0; j < 90; j++)
+	// 	{
+	// 		*get_pixel(tmp, (t_uvec_2){i, j}) = 0x00FF00FF;
+	// 	}
+	// }
+
+	// mlx_put_image_to_window(data.mlx.instance, data.mlx.window, tmp, 0, 0);
+
+	// t_rectangle max = get_largest_rectangle_available_img(tmp);
+	// (void)max;
+	// t_alpha_img *alpha;
+	// alpha = transform_img_to_alpha_img(data.igmlx, tmp);
+	// igmlx_put_alpha_to_window(data.igmlx, data.mlx.window, alpha, (t_uvec_2){150, 0});
+	// igmlx_load_font(data.igmlx, "fonts/default.xpm", );
 	// button->base.collision_box = (t_vec_2){150, 150};
 	mlx_hook(data.mlx.window, DestroyNotify, 0, destroy_close, &data.mlx);
 	mlx_loop_hook(data.mlx.instance, main_loop, &data);

@@ -3,6 +3,9 @@
 		"intern.h": "c",
 		"igmlx.h": "c",
 		"ft_fprintf.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"stdbool.h": "c",
+		"mlx_int.h": "c",
+		"stdlib.h": "c"
 	}
 }

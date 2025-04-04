@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 08:57:27 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 09:03:13 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:14:04 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void free_font(t_igmlx *igmlx, t_igmlx_font *font)
 
 	c = 0;
 	while (c < CHAR_MAX)
-		mlx_destroy_image(igmlx->mlx, font->letters[(int)c++]);
+		igmlx_free_alpha(igmlx, font->letters[(int)c++]);
 	free(font);
 }
 
