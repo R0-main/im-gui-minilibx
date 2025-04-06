@@ -46,6 +46,8 @@ SRCS				=	src/main.c\
 						src/components/utils.c\
 						src/imgs/manipulation.c\
 						src/imgs/split.c\
+						src/png/png_file.c\
+						src/png/igmlx_png_to_alpha_image.c\
 						src/fonts/font_loader.c\
 						src/fonts/get.c\
 						src/fonts/print.c\

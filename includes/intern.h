@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 16:33:31 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/06 10:13:26 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,5 +239,8 @@ void							*balloc(size_t size);
 bool							is_inside_rectangle(t_uvec_2 p1, t_uvec_2 p2,
 									t_uvec_2 target);
 t_rectangle						get_largest_rectangle_available_img(t_img *img);
+
+// PNG
+int								igmlx_open_png_file(const char *path);
 
 #endif

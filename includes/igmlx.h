@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 16:33:56 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/06 09:26:22 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void									igmlx_apply_color_filter(t_img *img,
 
 t_img									*igmlx_upscale_img(t_igmlx *igmlx,
 											t_img *img, unsigned int factor);
+
+t_alpha_img								*igmlx_png_to_alpha_image(t_igmlx *igmlx,
+											const char *path);
 
 void									_info(const char *msg);
 
