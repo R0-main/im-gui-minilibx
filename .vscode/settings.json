@@ -8,6 +8,7 @@
 		"mlx_int.h": "c",
 		"stdlib.h": "c",
 		"colors.h": "c",
-		"types.h": "c"
+		"types.h": "c",
+		"compare": "c"
 	}
 }

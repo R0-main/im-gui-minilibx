@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/06 10:13:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:30:03 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef struct s_igmlx_component
 	t_timer						last_change_state_timer;
 	t_e_igmlx_state				state;
 	t_igmlx_component_state		states[IGMLX_STATE_COUNT];
+	t_igmlx_panel				*parent;
 }								t_igmlx_component;
 
 typedef struct s_igmlx_default_component
@@ -177,6 +178,25 @@ typedef struct s_win_data
 	void						*win;
 	t_list						*components;
 }								t_win_data;
+
+typedef struct s_igmlx_callback_function
+{
+	void						(*func)(void *);
+	void						*data;
+}								t_igmlx_callback_function;
+
+typedef struct s_igmlx_panel
+{
+	void						(*create_button)(void);
+	void						(*render_on_window)(struct s_igmlx_panel *,
+								void *);
+	void						(*render_on_buffer)(struct s_igmlx_panel *,
+								t_img *);
+	unsigned int				background_opacity;
+	bool						dragable;
+	t_igmlx_callback_function	on_close_callback;
+	t_igmlx						*igmlx;
+}								t_igmlx_panel;
 
 typedef struct s_igmlx
 {
@@ -239,6 +259,12 @@ void							*balloc(size_t size);
 bool							is_inside_rectangle(t_uvec_2 p1, t_uvec_2 p2,
 									t_uvec_2 target);
 t_rectangle						get_largest_rectangle_available_img(t_img *img);
+
+void							igmlx_panel_render_on_window(t_igmlx_panel *panel,
+									void *win);
+
+void							igmlx_render_window_components(t_igmlx *igmlx,
+									void *win);
 
 // PNG
 int								igmlx_open_png_file(const char *path);

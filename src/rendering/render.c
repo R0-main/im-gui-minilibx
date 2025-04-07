@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:22:48 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 15:52:01 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:24:54 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	render_component(t_igmlx *igmlx, void *win,
 		component->base.pos.y);
 }
 
-static void	render_window_components(t_igmlx *igmlx, void *win)
+void	igmlx_render_window_components(t_igmlx *igmlx, void *win)
 {
 	t_win_data	*data;
 	t_list		*current;
