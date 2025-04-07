@@ -6,13 +6,13 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:54:47 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 09:23:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:32:17 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intern.h"
 
-int	mouse_motion(int x, int y, t_igmlx *igmlx)
+int	igmlx_mouse_motion_event_callback(int x, int y, t_igmlx *igmlx)
 {
 	t_igmlx_default_component	*component;
 
@@ -36,14 +36,16 @@ int	mouse_motion(int x, int y, t_igmlx *igmlx)
 	return (0);
 }
 
-int	release_mouse(int key, int x, int y, t_igmlx *igmlx)
+int	igmlx_mouse_button_released_event_callback(int key, int x, int y,
+		t_igmlx *igmlx)
 {
 	_debug("Mouse Released");
 	(void)key, (void)x, (void)y, (void)igmlx;
 	return (0);
 }
 
-int	press_mouse(int key, int x, int y, t_igmlx *igmlx)
+int	igmlx_mouse_button_pressed_event_callback(int key, int x, int y,
+		t_igmlx *igmlx)
 {
 	t_igmlx_default_component	*component;
 

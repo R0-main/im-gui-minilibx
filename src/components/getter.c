@@ -6,23 +6,19 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:14:17 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/03/31 14:45:24 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:37:07 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intern.h"
 
-t_igmlx_default_component	*get_win_component_at(t_igmlx *igmlx, void *win,
+t_igmlx_default_component	*get_panels_component_at(t_igmlx_panel *panel,
 		t_uvec_2 coords)
 {
-	t_win_data					*data;
 	t_list						*current;
 	t_igmlx_default_component	*component;
 
-	data = get_window_data(igmlx, win);
-	if (!data)
-		return (NULL);
-	current = data->components;
+	current = panel->childs;
 	while (current && current->content)
 	{
 		component = (t_igmlx_default_component *)current->content;
@@ -40,14 +36,15 @@ t_igmlx_default_component	*get_win_component_at(t_igmlx *igmlx, void *win,
 
 t_igmlx_default_component	*get_component_at(t_igmlx *igmlx, t_uvec_2 coords)
 {
-	t_list *current;
-	t_igmlx_default_component *component;
+	t_list						*current;
+	t_igmlx_default_component	*component;
 
 	component = NULL;
-	current = igmlx->wins_data;
+	current = igmlx->panels;
 	while (current)
 	{
-		component = get_win_component_at(igmlx, ((t_win_data *)current->content)->win, coords);
+		component = get_panels_component_at(((t_igmlx_panel *)current->content),
+				coords);
 		if (component)
 			return (component);
 		current = current->next;

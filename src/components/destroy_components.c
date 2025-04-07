@@ -6,36 +6,51 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 08:57:27 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/03 08:57:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:03:58 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intern.h"
 
-static void free_component(t_igmlx *igmlx, t_igmlx_default_component *component)
+void	igmlx_free_component(t_igmlx *igmlx,
+		t_igmlx_default_component *component)
 {
-	size_t i;
-
-	i = 0;
-	while (i < IGMLX_STATE_COUNT)
-		mlx_destroy_image(igmlx->mlx, component->base.states[i++].render);
-	free(component);
-}
-
-void igmlx_destroy_component_list(t_igmlx *igmlx, t_list **components)
-{
+	size_t	i;
 	t_list	*current;
-	t_list	*tmp;
+	t_list	*old;
 
-	if (!components)
+	if (!component)
 		return ;
-	current = *components;
-	while (current)
+	i = -1;
+	current = NULL;
+	if (component->base.type == IGMLX_COMPONENT_PANEL)
 	{
-		tmp = current->next;
-		if (current->content)
-			free_component(igmlx, current->content);
-		free(current);
-		current = tmp;
+		current = igmlx->panels;
+		while (current)
+		{
+			if (current->content == component)
+			{
+				if (old)
+					old->next = current->next;
+				else
+					igmlx->panels = NULL;
+				free(current);
+				break;
+			}
+			old = current;
+			current = current->next;
+		}
+		current = ((t_igmlx_panel *)component)->childs;
+		while (current)
+		{
+			old = current->next;
+			igmlx_free_component(igmlx, current->content);
+			free(current);
+			current = old;
+		}
 	}
+	while (++i < IGMLX_STATE_COUNT)
+		if (component->base.states[i].render)
+			mlx_destroy_image(igmlx->mlx, component->base.states[i].render);
+	free(component);
 }

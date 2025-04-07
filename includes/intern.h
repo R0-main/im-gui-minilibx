@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/07 13:30:03 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:54:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 		(t_igmlx_component){IGMLX_COMPONENT_BUTTON,                          \
 							(t_uvec_2){50, 50},                              \
 							(t_uvec_2){50, 50},                              \
-							NULL,                                            \
 							(t_timer){500, (t_time){0}, (t_time){0}, false}, \
 							IGMLX_STATE_DEFAULT,                             \
 							{                                                \
@@ -56,8 +55,9 @@
 									{0, 0, 0, 0},                            \
 									NULL,                                    \
 								},                                           \
-							}},                                              \
-			150, NULL, NULL, NULL, NULL, NULL,                               \
+							},                                               \
+							NULL},                                           \
+			150, NULL, NULL, NULL, NULL, NULL                                \
 	}
 
 typedef unsigned int			t_color;
@@ -104,6 +104,7 @@ typedef enum e_igmlx_log_level
 
 typedef enum e_igmlx_component_type
 {
+	IGMLX_COMPONENT_PANEL,
 	IGMLX_COMPONENT_BUTTON,
 }								t_e_igmlx_component_type;
 
@@ -150,7 +151,6 @@ typedef struct s_igmlx_component
 	t_e_igmlx_component_type	type;
 	t_uvec_2					collision_box;
 	t_uvec_2					pos;
-	void						*win;
 	t_timer						last_change_state_timer;
 	t_e_igmlx_state				state;
 	t_igmlx_component_state		states[IGMLX_STATE_COUNT];
@@ -187,7 +187,12 @@ typedef struct s_igmlx_callback_function
 
 typedef struct s_igmlx_panel
 {
-	void						(*create_button)(void);
+	t_igmlx_component			base;
+	void						(*pre_render)(struct s_igmlx_panel *);
+	void						(*set_background)(struct s_igmlx_panel *,
+								t_color color);
+	t_igmlx_button_component	*(*add_button)(struct s_igmlx_panel *);
+	void						(*destroy)(struct s_igmlx_panel *, t_igmlx *);
 	void						(*render_on_window)(struct s_igmlx_panel *,
 								void *);
 	void						(*render_on_buffer)(struct s_igmlx_panel *,
@@ -195,13 +200,15 @@ typedef struct s_igmlx_panel
 	unsigned int				background_opacity;
 	bool						dragable;
 	t_igmlx_callback_function	on_close_callback;
+	t_igmlx_callback_function	on_reduce_callback;
+	t_list						*childs;
 	t_igmlx						*igmlx;
 }								t_igmlx_panel;
 
 typedef struct s_igmlx
 {
 	void						*mlx;
-	t_list						*wins_data;
+	t_list						*panels;
 	t_list						*fonts;
 	t_uvec_2					mouse_pos;
 	t_uvec_2					last_mouse_pos;
@@ -223,14 +230,13 @@ void							init_component_states_images(t_igmlx *igmlx,
 t_igmlx_component_state			get_component_state(t_igmlx_default_component *component);
 t_img							*get_component_image(t_igmlx_default_component *component);
 
-int								mouse_motion(int x, int y, t_igmlx *igmlx);
-int								release_mouse(int key, int x, int y,
+int								igmlx_mouse_motion_event_callback(int x, int y,
 									t_igmlx *igmlx);
-int								press_mouse(int key, int x, int y,
-									t_igmlx *igmlx);
+int								igmlx_mouse_button_released_event_callback(int key,
+									int x, int y, t_igmlx *igmlx);
+int								igmlx_mouse_button_pressed_event_callback(int key,
+									int x, int y, t_igmlx *igmlx);
 
-void							igmlx_destroy_component_list(t_igmlx *igmlx,
-									t_list **components);
 void							igmlx_destroy(t_igmlx *igmlx);
 t_igmlx_default_component		*get_win_component_at(t_igmlx *igmlx, void *win,
 									t_uvec_2 coords);
@@ -260,11 +266,28 @@ bool							is_inside_rectangle(t_uvec_2 p1, t_uvec_2 p2,
 									t_uvec_2 target);
 t_rectangle						get_largest_rectangle_available_img(t_img *img);
 
+void							igmlx_change_panel_background_color(t_igmlx_panel *panel,
+									t_color color);
+
 void							igmlx_panel_render_on_window(t_igmlx_panel *panel,
 									void *win);
 
 void							igmlx_render_window_components(t_igmlx *igmlx,
 									void *win);
+void							igmlx_render_component(t_igmlx *igmlx,
+									void *win,
+									t_igmlx_default_component *component);
+void							igmlx_destroy_panel(t_igmlx_panel *panel,
+									t_igmlx *igmlx);
+
+t_igmlx_button_component		*igmlx_create_button_component(t_igmlx_panel *parent);
+t_igmlx_button_component		*igmlx_panel_add_button_component(t_igmlx_panel *parent);
+void							igmlx_panel_pre_render(t_igmlx_panel *panel);
+void							igmlx_panel_add_component(t_igmlx_panel *parent,
+									t_igmlx_component *component);
+
+void							igmlx_free_component(t_igmlx *igmlx,
+									t_igmlx_default_component *component);
 
 // PNG
 int								igmlx_open_png_file(const char *path);

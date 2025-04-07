@@ -38,6 +38,13 @@ SRCS				=	src/main.c\
 						src/alpha_images/alpha_images.c\
 						src/alpha_images/put.c\
 						src/alpha_images/free_alpha.c\
+						src/panels/panel_add_button.c\
+						src/panels/panel_add_component.c\
+						src/panels/panel_pre_render.c\
+						src/panels/panel_background.c\
+						src/panels/panel_creation.c\
+						src/panels/panel_destruction.c\
+						src/panels/panel_render_on_window.c\
 						src/components/button/button.c\
 						src/components/checkbox/checkbox.c\
 						src/components/destroy_components.c\

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   button.c                                           :+:      :+:    :+:   */
+/*   panel_pre_render.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 15:45:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/07 15:13:28 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/04/07 15:18:30 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/04/07 15:27:28 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intern.h"
 
-t_igmlx_button_component *igmlx_create_button_component(t_igmlx_panel *parent)
+void igmlx_panel_pre_render(t_igmlx_panel *panel)
 {
-	t_igmlx_button_component	*button;
+	t_list	*current;
 
-	button = malloc(sizeof(t_igmlx_button_component));
-	if (!button)
-		return (NULL);
-	ft_bzero(button, sizeof(t_igmlx_button_component));
-	*button = IGMLX_BUTTON_DEFAULT;
-	button->base.parent = parent;
-	return (button);
+	if (!panel->igmlx)
+		return ;
+	current = panel->childs;
+	while (current)
+	{
+		if (current->content)
+			init_component_states_images(panel->igmlx, (t_igmlx_default_component *)current->content);
+		current = current->next;
+	}
+	_info("Components PreRendered");
 }
