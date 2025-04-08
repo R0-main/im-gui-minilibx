@@ -82,7 +82,6 @@ $(NAME) : header $(FT_LIBC) $(OBJ_DIR) $(MLX_LIB)
 $(OBJ_DIR)/%.o: %.c
 		@mkdir -p $(dir $@)
 		@$(CC) $(CFLAGS) -c $< -o $@
-		@printf "$(GREEN)$(OK)$(RESET)"
 
 $(OBJ_DIR): $(OBJS)
 		@if [ ! -d "$(OBJ_DIR)" ]; \

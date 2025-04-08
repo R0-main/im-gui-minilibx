@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 10:06:39 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/07 16:05:22 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:26:37 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,12 +160,14 @@ int	main(void)
 
 
 	panel = igmlx_create_panel(data.igmlx);
-
+	panel->dragable = true;
 	// igmlx_load_font(data.igmlx, "/home/rguigneb/pppprojects/im-gui-minilibx/fonts/default.xpm", (t_igmlx_font_params){0x00FF00, 2, (t_uvec_2){-10, 0}});
 	// igmlx_put_str(data.igmlx, (char *)"teswqfqfqwfqfqwfqfqwfqfwq", "/home/rguigneb/pppprojects/im-gui-minilibx/fonts/default.xpm", data.mlx.window, (t_uvec_2){0, 450});
 
 
 	t_igmlx_button_component *btn = panel->add_button(panel);
+
+	panel->base.states[IGMLX_STATE_DEFAULT].backgroud_color = 0x00FF00;
 
 	btn->data = &data;
 	btn->press = (void (*)(void *))on_press;

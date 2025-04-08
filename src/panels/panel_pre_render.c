@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:18:30 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/07 15:27:28 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:22:03 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ void igmlx_panel_pre_render(t_igmlx_panel *panel)
 			init_component_states_images(panel->igmlx, (t_igmlx_default_component *)current->content);
 		current = current->next;
 	}
+	init_component_states_images(panel->igmlx, (t_igmlx_default_component *)panel);
 	_info("Components PreRendered");
 }

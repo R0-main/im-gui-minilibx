@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:14:17 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/07 15:37:07 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:20:09 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ t_igmlx_default_component	*get_panels_component_at(t_igmlx_panel *panel,
 			return (component);
 		}
 		current = current->next;
+	}
+	if (is_inside_rectangle(panel->base.pos,
+		(t_uvec_2){panel->base.collision_box.x
+		+ panel->base.pos.x, panel->base.collision_box.y
+		+ panel->base.pos.y}, coords))
+	{
+		return ((t_igmlx_default_component *)panel);
 	}
 	return (NULL);
 }

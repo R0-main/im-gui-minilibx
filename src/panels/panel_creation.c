@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:11:57 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/07 15:40:04 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:24:10 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 void		igmlx_init_panel_base(t_igmlx_panel *panel)
 {
 	panel->base.type = IGMLX_COMPONENT_PANEL;
+	panel->base.pos = (t_uvec_2){0, 0};
+	// panel->base.states[IGMLX_STATE_DEFAULT]
 	panel->base.collision_box = (t_uvec_2){150, 550};
 }
 
@@ -40,6 +42,7 @@ t_igmlx_panel *igmlx_create_panel(t_igmlx *igmlx)
 	panel->set_background = igmlx_change_panel_background_color;
 	panel->render_on_buffer = NULL;
 	panel->destroy = igmlx_destroy_panel;
+	igmlx_init_panel_base(panel);
 	ft_lstadd_back(&igmlx->panels, lst);
 	return (panel);
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/07 15:54:00 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:16:28 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@
 	(t_igmlx_button_component)                                               \
 	{                                                                        \
 		(t_igmlx_component){IGMLX_COMPONENT_BUTTON,                          \
+							false,                                           \
 							(t_uvec_2){50, 50},                              \
 							(t_uvec_2){50, 50},                              \
 							(t_timer){500, (t_time){0}, (t_time){0}, false}, \
+							IGMLX_STATE_DEFAULT,                             \
 							IGMLX_STATE_DEFAULT,                             \
 							{                                                \
 								{                                            \
@@ -149,9 +151,11 @@ typedef struct s_igmlx_component_state
 typedef struct s_igmlx_component
 {
 	t_e_igmlx_component_type	type;
+	bool						rendered;
 	t_uvec_2					collision_box;
 	t_uvec_2					pos;
 	t_timer						last_change_state_timer;
+	t_e_igmlx_state				last_state;
 	t_e_igmlx_state				state;
 	t_igmlx_component_state		states[IGMLX_STATE_COUNT];
 	t_igmlx_panel				*parent;
@@ -212,6 +216,7 @@ typedef struct s_igmlx
 	t_list						*fonts;
 	t_uvec_2					mouse_pos;
 	t_uvec_2					last_mouse_pos;
+	t_igmlx_default_component	*drag_component;
 	t_igmlx_default_component	*last_hovered_component;
 }								t_igmlx;
 
@@ -279,7 +284,8 @@ void							igmlx_render_component(t_igmlx *igmlx,
 									t_igmlx_default_component *component);
 void							igmlx_destroy_panel(t_igmlx_panel *panel,
 									t_igmlx *igmlx);
-
+void							igmlx_set_component_state(t_igmlx_default_component *component,
+									t_e_igmlx_state new_state);
 t_igmlx_button_component		*igmlx_create_button_component(t_igmlx_panel *parent);
 t_igmlx_button_component		*igmlx_panel_add_button_component(t_igmlx_panel *parent);
 void							igmlx_panel_pre_render(t_igmlx_panel *panel);
@@ -288,7 +294,7 @@ void							igmlx_panel_add_component(t_igmlx_panel *parent,
 
 void							igmlx_free_component(t_igmlx *igmlx,
 									t_igmlx_default_component *component);
-
+									void	igmlx_render_panel_components_to_window(t_igmlx_panel *panel, void *win);
 // PNG
 int								igmlx_open_png_file(const char *path);
 

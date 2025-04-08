@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:03:13 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/02 12:09:03 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:20:51 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,12 @@ void	init_component_states_images(t_igmlx *igmlx,
 				component, (t_e_igmlx_state)i);
 		i++;
 	}
+}
+
+void igmlx_set_component_state(t_igmlx_default_component *component, t_e_igmlx_state new_state)
+{
+	if (component->base.type == IGMLX_COMPONENT_PANEL)
+		return ;
+	component->base.last_state = component->base.state;
+	component->base.state = new_state;
 }
