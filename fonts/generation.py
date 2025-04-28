@@ -9,10 +9,10 @@ def generate_spritesheet(font_path, output_filename, img_size=48, cols=16):
     :param img_size: Taille de chaque case dans la spritesheet
     :param cols: Nombre de colonnes dans la spritesheet
     """
-    rows = (128 + cols - 1) // cols  # Nombre de lignes nécessaires (arrondi)
+    rows = ((128 + cols - 1) // cols)  # Nombre de lignes nécessaires (arrondi)
 
     # Déterminer dynamiquement la taille de la police pour ne pas couper les lettres
-    font_size = int(img_size * 0.5)  # 70% de la taille de la case pour éviter la coupe
+    font_size = int(img_size * 0.7)  # 70% de la taille de la case pour éviter la coupe
     font = ImageFont.truetype(font_path, font_size)
 
     # Créer une image pour la spritesheet
@@ -48,7 +48,7 @@ def generate_spritesheet(font_path, output_filename, img_size=48, cols=16):
 
 if __name__ == "__main__":
     # Modifier ces paramètres selon ton besoin
-    font_path = "font.otf"  # Change pour la police de ton choix
+    font_path = "pricedown.ttf"  # Change pour la police de ton choix
     output_filename = "ascii_spritesheet_48x48.png"
 
-    generate_spritesheet(font_path, output_filename, 32)
+    generate_spritesheet(font_path, output_filename, 48)

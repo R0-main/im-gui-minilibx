@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:03:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/07 15:07:01 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:58:54 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void									igmlx_load_font(t_igmlx *igmlx,
 											char *path,
 											t_igmlx_font_params params);
 
-void									igmlx_put_str(t_igmlx *igmlx, char *str,
-											char *font_name, void *win,
-											t_uvec_2 pos);
+void									igmlx_put_str_to_buffer(t_igmlx *igmlx,
+											char *str, char *font_name,
+											t_img *buffer, t_uvec_2 pos);
 
 void									igmlx_free_alpha(t_igmlx *igmlx,
 											t_alpha_img *alpha);
@@ -59,6 +59,10 @@ t_color									igmlx_melt_colors(t_color input,
 void									igmlx_apply_color_filter(t_img *img,
 											t_color filter);
 
+void									igmlx_copy_to_dest_ignore_null(t_img *origin,
+											t_uvec_2 origin_pos,
+											t_uvec_2 length, t_img *dest,
+											t_uvec_2 dest_pos);
 t_img									*igmlx_upscale_img(t_igmlx *igmlx,
 											t_img *img, unsigned int factor);
 

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:12:20 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/04/04 16:28:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:52:14 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static void	init_letters_images(t_igmlx *igmlx, t_igmlx_font *font,
 	int y;
 	int x;
 	t_img *tmp;
-	t_img *upscaled;
+	// t_img *upscaled;
 
 	c = -1;
 	y = 0;
 	x = 0;
 	while (++c < CHAR_MAX)
 	{
-		tmp = mlx_new_image(igmlx->mlx, 32, 32);
+		tmp = mlx_new_image(igmlx->mlx, 48, 48);
 		if (!tmp)
 		{
 			_error("mlx_new_image failed!");
@@ -37,12 +37,13 @@ static void	init_letters_images(t_igmlx *igmlx, t_igmlx_font *font,
 			y++;
 			x = 0;
 		}
-		igmlx_copy_to_dest(font_img, (t_uvec_2){x * 32, y * 32}, (t_uvec_2){32, 32}, tmp, (t_uvec_2){0, 0});
+		igmlx_copy_to_dest(font_img, (t_uvec_2){x * 48, y * 48}, (t_uvec_2){48, 48}, tmp, (t_uvec_2){0, 0});
 		igmlx_apply_color_filter(tmp, font->color);
-		upscaled = igmlx_upscale_img(igmlx, tmp, font->size_mutliplier);
-		mlx_destroy_image(igmlx->mlx, tmp);
-		font->letters[(int)c] = transform_img_to_alpha_img(igmlx, upscaled);
-		mlx_destroy_image(igmlx->mlx, upscaled);
+		// upscaled = igmlx_upscale_img(igmlx, tmp, font->size_mutliplier);
+		// if (upscaled != tmp)
+		// 	mlx_destroy_image(igmlx->mlx, tmp);
+		font->letters[(int)c] = tmp;
+		// mlx_destroy_image(igmlx->mlx, upscaled);
 		x++;
 	}
 }
